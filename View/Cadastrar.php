@@ -34,7 +34,7 @@
     <button type="submit">Cadastrar
 
      <?php 
-
+      session_start();// abrir uma sessao ,para  pegar os dados recebidos assim que apertar o botao cadastrar 
      //coletando dados 
      if(isset($_POST['codigo'])){
      $codigo =           $_POST['codigo'];
@@ -45,8 +45,14 @@
 
      // passando no objeto cliente 
      $cliente= new Cliente($codigo,$nome,$telefone,$endereco,$dataDeNascimento);
-     $controle= new Control($cliente);
+   
 
+     // a sessao pode ser utilizada para transferir dados de uma tabela para outra 
+
+      $_SESSION['codigo'] = $codigo;
+                   
+                    //transferindo o objeto todo
+                    $_SESSION["cliente"]            =$cliente;
     }
      
      ?>
@@ -58,13 +64,14 @@
     <?php 
       if(isset($_POST['codigo']))
     {
-      echo $controle->consultarCliente();
+      echo "Cadastrado com sucesso!";
     }
     else
     {  
         echo"preencha os campos!";
 
     }
+
     ?>
 
 

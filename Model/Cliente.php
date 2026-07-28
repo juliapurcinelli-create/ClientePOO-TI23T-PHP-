@@ -30,12 +30,12 @@ class Cliente{
 
    public function __get(string $dados):mixed
    {
-     return $dados;
+     return $this->$dados;
    }//fim do get
 
    public function __set(string $variavel, string $novoDado):void
    {
-     $this->variavel = $novoDado;
+     $this->$variavel = $novoDado;
    }// fim do set 
 
 }// fim da classe 

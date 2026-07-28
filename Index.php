@@ -14,9 +14,9 @@
 <body>
  <h1> Página Inicial </h1>
 <a href="view/Cadastrar.php"><button> Cadastrar</button></a>
-<a href=""> <button> Consultar</button></a>
-<a href=""> <button>Atualizar</button></a>
-<a href=""> <button> Excluir</button></a>
+<a href="view/Consultar.php"> <button> Consultar</button></a>
+<a href="view/atualizar.php"> <button>Atualizar</button></a>
+<a href="view/excluir.php"> <button> Excluir</button></a>
 
     
 </body>

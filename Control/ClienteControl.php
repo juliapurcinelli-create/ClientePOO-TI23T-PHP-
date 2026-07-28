@@ -25,83 +25,59 @@ public function consultarCliente():string
 }// fim do Método 
 
 
-public function atualizarNome(int $codigo,string $nome):string
+public function atualizarNome(string $nome):string
 {
-    if($this->cliente->codigo ==$codigo)
-    { 
-          $this->cliente->nome=$nome;
-          return"Nome atualizado com sucesso!";
-       
-    }
-    else
-    { 
-      return"nome nao atualizado!";
-    }  
-}
-
-public function atualizarTelefone(int $codigo,string $telefone):string
-{
-    if($this->cliente->codigo ==$codigo)
-    { 
-          $this->cliente->telefone=$telefone;
-          return"Telefone atualizado com sucesso!";
-       
-    }
-    else
-    { 
-      return"Telefone nao atualizado!";
-    }  
-}
-
-public function atualizarData(int $codigo,string $data):string
-{
-    if($this->cliente->codigo ==$codigo)
-    { 
-          $this->cliente->dataDeNascimenti=$data;
-          return"Data de Nascimento  atualizado com sucesso!";
-       
-    }
-    else
-    { 
-      return"Data de Nascimento nao atualizado!";
-    }  
     
+    
+          $this->cliente->nome=$nome;
+          return"$nome, atualizado com sucesso!";
+       
+  
+}// fim do atualizar nome 
+
+public function atualizarTelefone(string $telefone):string
+{
+    
+          $this->cliente->telefone=$telefone;
+          return"$telefone atualizado com sucesso!";
+       
+   
+}
+
+public function atualizarData(string $data):string
+{
+        $this->cliente->dataDeNascimento=$data;
+          return"$data de Nascimento  atualizado com sucesso!";
+       
    
 
 }
 
-public function atualizarEndereco(int $codigo,string $endereco):string
+public function atualizarEndereco(string $endereco):string
 {
-    if($this->cliente->codigo ==$codigo)
-    { 
+   
+     
           $this->cliente->endereco=$endereco;
-          return"Endereço   atualizado com sucesso!";
+          return"$endereco   atualizado com sucesso!";
        
-    }
-    else
-    { 
-      return"Endereço nao atualizado!";
-    }       
+   
 
 }// fim do atualizar 
 
-public function excluir(int $codigo):string
+public function excluir():string
 {
-    if($this->cliente->codigo==$codigo)
-    {
+    
+    
        $this->cliente->codigo    =0;
        $this->cliente->nome   ="";
        $this->cliente->telefone   ="";
        $this->cliente-> endereco   ="";
        $this->cliente->dataDeNascimento   ="";
 
-       return"Cliente $codigo excluido com sucesso";
+       return 1;
+
 
                    
-    }else
-    {
-       return"Cliente $codigo nao encontrado!";
-    }
 }// fim do excluir 
 
 
