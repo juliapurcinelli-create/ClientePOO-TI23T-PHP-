@@ -1,9 +1,18 @@
 <?php
   namespace Projeto\ti23t\view;
+  require_once('../DAO/cadastrar.php'); // agora estamos conectando com o Banco de Dados 
+  require_once('../DAO/conexao.php');
   require_once('../model\cliente.php');
   require_once('../control\ClienteControl.php');
   use Projeto\ti23t\model\Cliente;
   use Projeto\ti23t\control\Control;
+  use Projeto\ti23t\DAO\Conexao;
+  use Projeto\ti23t\DAO\Cadastrar;
+
+  $conexao= new Conexao();
+  $inserir= new Cadastrar();
+  $mensagem= "";
+
 ?>
 
 <!DOCTYPE html>
@@ -16,8 +25,6 @@
 <body>
     <h1>Cadastrar Cliente </h1>
     <form method="POST">
-    <label> Codigo:</label>
-    <input type="number" name="codigo" id="codigo"/> <br><br>
 
     <label>Nome:</label>
     <input type="text" name="nome" id="nome"/><br><br>
@@ -36,23 +43,30 @@
      <?php 
       session_start();// abrir uma sessao ,para  pegar os dados recebidos assim que apertar o botao cadastrar 
      //coletando dados 
-     if(isset($_POST['codigo'])){
-     $codigo =           $_POST['codigo'];
+     if(isset($_POST['nome'])){
      $nome =             $_POST['nome'];
      $telefone =         $_POST['telefone'];
      $endereco =         $_POST['endereco'];
      $dataDeNascimento = $_POST['dataDeNascimento'];
 
+     $mensagem= $inserir->cadastrarCliente($conexao,$nome,$telefone,$endereco,$dataDeNascimento);
+
+
+
+
+
      // passando no objeto cliente 
-     $cliente= new Cliente($codigo,$nome,$telefone,$endereco,$dataDeNascimento);
+     //$cliente= new Cliente($codigo,$nome,$telefone,$endereco,$dataDeNascimento);
    
 
      // a sessao pode ser utilizada para transferir dados de uma tabela para outra 
 
-      $_SESSION['codigo'] = $codigo;
+      //$_SESSION['codigo'] = $codigo;
                    
                     //transferindo o objeto todo
-                    $_SESSION["cliente"]            =$cliente;
+                   // $_SESSION["cliente"]            =$cliente;
+
+
     }
      
      ?>
@@ -62,9 +76,9 @@
     </form>
     
     <?php 
-      if(isset($_POST['codigo']))
+      if(isset($_POST['nome']))
     {
-      echo "Cadastrado com sucesso!";
+      echo $mensagem;
     }
     else
     {  

@@ -3,17 +3,21 @@
  namespace Projeto\ti23t\view;
   require_once('../model\cliente.php');
   require_once('../control\ClienteControl.php');
+  require_once('../DAO/atualizar.php');
+  require_once('../DAO/conexao.php');
   use Projeto\ti23t\model\Cliente;
   use Projeto\ti23t\control\Control;
-
-
+  use Projeto\ti23t\DAO\Atualizar;
+  use Projeto\ti23t\DAO\Conexao;
 
   //iniciar a sessao 
-  session_start();
-  $clienteRecuperado= $_SESSION["cliente"];
-  $controle= new Control($clienteRecuperado);
+  //session_start();
+ // $clienteRecuperado= $_SESSION["cliente"];
+ // $controle= new Control($clienteRecuperado);
   
-
+$atualizar= new Atualizar();
+$conexao= new Conexao();
+$resultado="";
 
 
 ?>
@@ -30,31 +34,33 @@
     <form method="POST">
 
     <label> Codigo:</label>
-    <input type="number" name="codigo" id="codigo" value="<?php echo $clienteRecuperado->codigo;?>"disabled/> 
+    <input type="number" name="codigo" id="codigo"/>
     <br><br>
-
-    <label>Nome:</label>
-    <input type="text" name="nome" id="nome"value="<?php echo $clienteRecuperado->nome;?>"/><br><br>
-
-    <label>Telefone:</label>
-    <input type="text" name="telefone" id="telefone"value="<?php echo $clienteRecuperado->telefone;?>"/> <br><br>
-
-    <label>Endereço:</label>
-    <input type="text" name="endereco" id="endereco"value="<?php echo $clienteRecuperado->endereco;?>"/> <br><br>
-    
-    <label>Data de Nascimento:</label>
-    <input type="date" name="dataDeNascimento" id="dataDeNascimento"value="<?php echo $clienteRecuperado->dataDeNascimento;?>"/> <br><br>
+    <label> Escolha o Campo que deseja Atualizar:</label>
+    <select name="campo" id="campo">
+      <option value="nome"> Nome</option>
+      <option value="telefone"> Telefone</option>
+      <option value="endereco"> Endereço</option>
+      <option value="dataDeNascimento"> Data De Nascimento</option>
+    </select>
+    <br> <br>
+    <label>Informe o novo Dado : </label>
+    <input type="text" name="dado" id="dado"/>
+    <br><br>
 
       <button type="submit">Atualizar
         <?php 
-        $resultadoNome  = $controle->atualizarNome($_POST['nome']);
-        $resultadoTelefone  = $controle->atualizarTelefone($_POST['telefone']);
-        $resultadoEndereco  = $controle->atualizarEndereco($_POST['endereco']);
-        $resultadoData  = $controle->atualizarData($_POST['dataDeNascimento']);
+          $codigo = $_POST['codigo'];
+          $campo = $_POST ['campo'];
+          $novoDado= $_POST['dado'];
+
+          $resultado= $atualizar-> atualizarCliente($conexao,$codigo,$campo,$novoDado);
+
+
         ?>
     </form>
     <?php 
-     echo $resultadoNome."<br>". $resultadoTelefone."<br>".$resultadoEndereco."<br>". $resultadoData;
+     echo $resultado;
     
     ?>
     <br>
